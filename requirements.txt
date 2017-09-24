@@ -1,3 +1,8 @@
+numpy==1.11.3
 matplotlib==2.0.2
+Flask_Uploads==0.2.1
+scikit_image==0.12.3
 Flask==0.12.2
 Pillow==4.2.1
+skimage==0.0
+scikit_learn==0.19.0

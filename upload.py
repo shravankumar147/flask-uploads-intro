@@ -33,15 +33,16 @@ def predict_face(im_path):
 
 @app.route('/')
 def index():
-    return 'Face Recognization'
+    return render_template('index.html')
 
 @app.route('/upload', methods=['GET', 'POST'])
 def upload():
     if request.method == 'POST' and 'photo' in request.files:
         filename = photos.save(request.files['photo'])
-        return predict_face('static/img'+'/'+filename)
+        f = os.path.join(app.config['UPLOADED_PHOTOS_DEST'],filename)
+        return predict_face(f)
+#         return predict_face('static/img'+'/'+filename)
     return render_template('upload.html')
-
 
 
 if __name__ == '__main__':

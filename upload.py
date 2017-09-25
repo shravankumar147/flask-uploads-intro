@@ -9,8 +9,8 @@ configure_uploads(app, photos)
 
 import numpy as np
 import os
-import matplotlib.pyplot as plt
 from sklearn.externals import joblib
+from skimage import io
 from skimage.color import rgb2gray
 from skimage import exposure, feature, transform
 from flask import jsonify, json
@@ -25,7 +25,7 @@ def feature_extract(image):
     return image_feat
 
 def predict_face(im_path):
-    image =plt.imread(im_path)
+    image =io.imread(im_path)
     image_feat = feature_extract(image)
     pred_label = svc.predict(image_feat)[0]
     result = json.dumps({'results':pred_label},indent=4)
@@ -41,8 +41,8 @@ def upload():
         filename = photos.save(request.files['photo'])
         f = os.path.join(app.config['UPLOADED_PHOTOS_DEST'],filename)
         return predict_face(f)
-#         return predict_face('static/img'+'/'+filename)
     return render_template('upload.html')
+
 
 
 if __name__ == '__main__':
